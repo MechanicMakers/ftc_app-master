@@ -10,7 +10,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
 @TeleOp(name="Mecanum", group="TeleOp")
-//@Disabled
+
 public class Mecanum extends OpMode {
     private ElapsedTime runtime = new ElapsedTime();
     private DcMotor LFD = null;
@@ -34,10 +34,10 @@ public class Mecanum extends OpMode {
         RFD = hardwareMap.get(DcMotor.class, "RFD");
         RRD = hardwareMap.get(DcMotor.class, "RRD");
 
-        LFD.setDirection(DcMotor.Direction.FORWARD);
-        LRD.setDirection(DcMotor.Direction.FORWARD);
-        RFD.setDirection(DcMotor.Direction.REVERSE);
-        RRD.setDirection(DcMotor.Direction.REVERSE);
+        LFD.setDirection(DcMotor.Direction.REVERSE);
+        LRD.setDirection(DcMotor.Direction.REVERSE);
+        RFD.setDirection(DcMotor.Direction.FORWARD);
+        RRD.setDirection(DcMotor.Direction.FORWARD);
 
 
         telemetry.addData("Status", "Initialized");
@@ -66,35 +66,50 @@ public class Mecanum extends OpMode {
         // Setup a variable for each drive wheel to save power level for telemetry
 
         if (Math.abs(gamepad1.left_stick_y) > thrshold) {
-            y1 = gamepad1.left_stick_y * gamepad1.left_stick_y;
+            if (gamepad1.left_stick_y < 0){
+                y1 = -1*(gamepad1.left_stick_y * gamepad1.left_stick_y);
+            }
+            else if (gamepad1.left_stick_y > 0){
+                y1 = (gamepad1.left_stick_y * gamepad1.left_stick_y);
+            }
         } else {
             y1 = 0;
         }
         if (Math.abs(gamepad1.left_stick_x) > thrshold) {
-            x1 = gamepad1.left_stick_x * gamepad1.left_stick_x;
+            if (gamepad1.left_stick_x < 0){
+                x1 = -1*(gamepad1.left_stick_x * gamepad1.left_stick_x);
+            }
+            else if (gamepad1.left_stick_x > 0){
+                x1 = (gamepad1.left_stick_x * gamepad1.left_stick_x);
+            }
         } else {
             x1 = 0;
         }
         if (Math.abs(gamepad1.right_stick_x) > thrshold) {
-            x2 = gamepad1.right_stick_x * gamepad1.right_stick_x;
+            if (gamepad1.right_stick_x < 0){
+                x2 = -1*(gamepad1.right_stick_x * gamepad1.right_stick_x);
+            }
+            else if (gamepad1.right_stick_x > 0){
+                x2 = (gamepad1.right_stick_x * gamepad1.right_stick_x);
+            }
         } else {
             x2 = 0;
         }
-        RFD.setPower(y1 - x2 - x1);
-        RRD.setPower(y1 - x2 + x1);
-        LFD.setPower(y1 + x2 + x1);
-        LRD.setPower(y1 + x2 - x1);
+        RFD.setPower(y1 - x1 + x2);
+        RRD.setPower(y1 + x1 + x2);
+        LFD.setPower(y1 + x1 - x2);
+        LRD.setPower(y1 - x1 - x2 );
         // Show the elapsed game time and wheel power.
         telemetry.addData("Status", "Run Time: " + runtime.toString());
-        telemetry.addData("Motors right side", "Forward" + RFD.getPower(), "Rear" + RRD.getPower());
-        telemetry.addData("Motors left side", "Forward" + LFD.getPower(), "Rear" + LRD.getPower());
+        telemetry.addData("Motors right side", "Forward" + RFD.getPower() + " Rear" + RRD.getPower());
+        telemetry.addData("Motors left side", "Forward" + LFD.getPower() + " Rear" + LRD.getPower());
         telemetry.update();
     }
 
     /*
      * Code to run ONCE after the driver hits STOP
      */
-    @Override
+    @          Override
     public void stop() {
 
     }

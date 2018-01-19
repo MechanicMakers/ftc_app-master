@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode;
 import android.graphics.Color;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -11,14 +10,15 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 
 
-@Autonomous(name="Jewlin", group="Autonomous")
-//@Disabled
+
+@Autonomous(name="JewlinRed", group="Autonomous")
+
 public class Jewlin extends OpMode
 {
     //counting time function
     private ElapsedTime runtime = new ElapsedTime();
-    //KRABBER
-    // We declare 2 servo objects and 2 variable for left krabb and right krabb and his scale Range
+
+    // We declare servo object and his scale Range
     private Servo LJ = null;
     DistanceSensor JDS;
     ColorSensor JCS;
@@ -43,7 +43,7 @@ public class Jewlin extends OpMode
 
 
 
-        LJ.scaleRange(0.2, 0.5);
+        LJ.scaleRange(0, 1);
 
         telemetry.addData("Status", "Initialized");
     }
@@ -56,7 +56,7 @@ public class Jewlin extends OpMode
     {
         //KRABER
         //Initialize the first position of krabber with GLYPH.
-        LJ.setPosition(1);
+        LJ.setPosition(0.2);
     }
 
     /*
@@ -73,17 +73,16 @@ public class Jewlin extends OpMode
      */
     @Override
     public void loop() {
-        Color.RGBToHSV((int) (JCS.red() * SCALE_FACTOR),
-                (int) (JCS.green() * SCALE_FACTOR),
-                (int) (JCS.blue() * SCALE_FACTOR),
-                hsvValues);
-        telemetry.addData("ColorSensorValues","Red " + JCS.red());
-        telemetry.addData("ColorSensorValues","Blue " + JCS.blue());
-        telemetry.addData("ColorSensorValues","Alpha " + JCS.alpha());
 
         //ADD ROBOT TIME STATUS
         telemetry.addData("Status", "Run Time: " + runtime.toString());
         telemetry.update();
+        if(JCS.blue() >= JCS.red() +50){
+            LJ.setPosition(0.1);
+        }
+        else if(JCS.red() >= JCS.blue()+50){
+            LJ.setPosition(0.3);
+        }
     }
 
     /*

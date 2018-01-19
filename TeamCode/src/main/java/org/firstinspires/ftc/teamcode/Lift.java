@@ -28,7 +28,7 @@ public class Lift extends OpMode
 
         //Lift
         // Initialize lift hardware direction.
-        LL  = hardwareMap.get(DcMotor.class, "LL");
+        LL = hardwareMap.get(DcMotor.class, "LL");
         LR = hardwareMap.get(DcMotor.class, "LR");
 
         LL.setDirection(DcMotor.Direction.FORWARD);

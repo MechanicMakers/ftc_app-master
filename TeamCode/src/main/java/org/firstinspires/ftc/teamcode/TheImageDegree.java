@@ -20,13 +20,13 @@ public class TheImageDegree extends LinearOpMode {
 
     VuforiaLocalizer vuforiaL;
 
-    @Override
-    public void runOpMode() throws InterruptedException {
+    public String pos;
+    public void runOpMode(){
 
         int cameraMonitorViewId=hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
-        VuforiaLocalizer.Parameters parameters=new VuforiaLocalizer.Parameters(cameraMonitorViewId);
-        parameters.vuforiaLicenseKey="AVmiHF3/////AAAAGTLb6D5vqUgdt1adb6Mf4sYb0tD0exNoGb4Af3FwgeOibcDTUsLJKtf9NcniZiHzmpuCChQnyFA1I/qwBlAnuy6jnujS0l0oVf8vRW5VMnMnnIRyisoKU8YuVDfI2aH5/zNibuTrUikvDuVGWH4DtnU1ZF+T/aG2p6lm6RWJCN1H0PVoMjkE2gPeqL6ShE6SvqNtYlByfFwlL613ptwTStn+VVAjCBkqiUtdAz0N3cbLR7aw7yAerGobh6X0vxvlADE9iDZLl+pJ725mEFJZHryiD3JF38AOESrY+5Fv49Wns+/VnXFqmZieQf7OnXjQX6Phc6Y0qkAHEYh2rz2Or7n6Ny19XCUdVWvfQTeOKkev";
-        parameters.cameraDirection=VuforiaLocalizer.CameraDirection.BACK;
+        VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
+        parameters.vuforiaLicenseKey = "AR+/1Xj/////AAAAmZVeX1TclkDftf0EjQhj+idSNF6vpGAY0vWg1laTAVg+MedtLFjicjlrOlqdduoKW33j/ITg4YIsQ3OvH8wXq1Wp/6ojRAa9HkHIlpheD/WnAK86Vm4QgTL2uOnksDLu6/zFiVledm6pgfLTsq0Wu3ySl2uc3tHAP8MA4QuENWN1qjWheRAJrJsW03DlXucGxtoOvpz9zJWg9JlBPmS3cvNCMRR69h5lCYifhSdbsWkFvmETudUZqEb749+ePTwTVIjy4sJ4PJ3hf5VCbLF2pEuOrrCO2mC/luc8n93P95R607sRbIzAE9Z9701FD36ksH+RbZ9LJJAwATVYW1PZgTUDUFYLxcrOzSEo3m3VbNjq";
+        parameters.cameraDirection = VuforiaLocalizer.CameraDirection.FRONT; //Check Range and Convenient
         this.vuforiaL= ClassFactory.createVuforiaLocalizer(parameters);
 
         VuforiaTrackables relicTrackables=this.vuforiaL.loadTrackablesFromAsset("RelicVuMark");
@@ -45,9 +45,10 @@ public class TheImageDegree extends LinearOpMode {
             }
             RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
             if (vuMark!=RelicRecoveryVuMark.UNKNOWN)
-                telemetry.addData("VuMark", "%s visible", vuMark);
+                pos = vuMark.toString();
             else
                 telemetry.addData("VuMark", "not visible");
+
             telemetry.update();
         }
 

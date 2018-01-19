@@ -71,5 +71,12 @@ public class FtcOpModeRegister implements OpModeRegister {
         manager.register("Mecanum",Mecanum.class);
         manager.register("Relic_Grobber",Relic_Grobber.class);
         manager.register("Selfie_Stick",Selfie_Stick.class);
+        manager.register("SensorMRRangeSensor",SensorMRRangeSensor.class);
+        manager.register("Relic_Grobber",Relic_Grobber.class);
+        manager.register("Competition_1_Blue_1",Autonumose_Competition_1_Blue_1.class);
+        manager.register("Competition_1_Blue_2",Autonumose_Competition_1_Blue_2.class);
+        manager.register("Competition_1_Red_1",Autonumose_Competition_1_Red_1.class);
+        manager.register("Competition_1_Red_2",Autonumose_Competition_1_Red_2.class);
+
     }
 }

@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 
 @TeleOp(name="Krabber", group="TeleOp")
-//@Disabled
+
 public class Krabber extends OpMode
 {
     //counting time function
@@ -34,8 +34,8 @@ public class Krabber extends OpMode
         LK.setDirection(Servo.Direction.FORWARD);
         RK.setDirection(Servo.Direction.REVERSE);
 
-        LK.scaleRange(0.2, 0.5);
-        RK.scaleRange(0.2, 0.5);
+        LK.scaleRange(0.35, 0.57);
+        RK.scaleRange(0.35, 0.57);
 
         telemetry.addData("Status", "Initialized");
     }

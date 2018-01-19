@@ -69,11 +69,11 @@ public class Relic_Grobber extends OpMode
         //config the buttons
         if (gamepad2.right_bumper)
         {
-            G.setPosition(1);
+            G.setPosition(G.getPosition()+0.01);
         }
         else if (gamepad2.left_bumper)
         {
-            G.setPosition(0);
+            G.setPosition(G.getPosition()-0.01);
         }
         if (gamepad2.dpad_right){
             T.setPosition(T.getPosition() - 0.01);
